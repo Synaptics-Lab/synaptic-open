@@ -24,6 +24,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "${SCRIPT_DIR}")"
 BIN="${ROOT_DIR}/bin/synaptic-node"
 
+# The node searches its working directory for the genesis file and refuses to
+# fall back to a devnet config, so run it from the repo root.
+cd "${ROOT_DIR}"
+
+if [[ ! -f "./genesis.toml" ]]; then
+    echo "genesis.toml not found at repo root (it ships in this repository)" >&2
+    exit 1
+fi
+
 RPC_PORT="${RPC_PORT:-8545}"
 P2P_PORT="${P2P_PORT:-9000}"
 DATA_DIR="${ROOT_DIR}/data"

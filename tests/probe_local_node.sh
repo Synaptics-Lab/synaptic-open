@@ -30,6 +30,9 @@ check() { [[ $? -eq 1 ]] && bad || ok; }
 
 if [[ ! -x "${BIN}" ]]; then echo "FAIL: ${BIN} not found"; exit 1; fi
 
+# run from the repo root: the node searches its cwd for genesis.toml
+cd "${ROOT_DIR}"
+
 DATA_DIR="${ROOT_DIR}/tests/.probe-data-${RPC_PORT}"
 rm -rf "${DATA_DIR}"
 

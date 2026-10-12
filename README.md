@@ -37,10 +37,13 @@ curl -s -X POST http://127.0.0.1:8545 -H 'content-type: application/json' \
 # {"jsonrpc":"2.0","result":{"chain_id":1},"id":1}
 ```
 
-The node boots in seconds into a fresh local genesis (cortex mode, 3 shards),
-serves JSON-RPC on `:8545` and P2P on `:9000`, and initializes its own state —
-no genesis file and no external bootstrap needed. Ctrl-C stops it; `data/`
-holds state and can be deleted for a fresh chain.
+The node boots in seconds into the genesis state shipped at the repo root
+(`genesis.toml` — the canonical mainnet tokenomics: 470,000,000 SYN; the
+binary refuses devnet-fallback genesis files by design, so the genesis ships
+explicitly), serves JSON-RPC on `:8545` and P2P on `:9000`, and runs as a
+non-validator (observer) node — no stake, no keys, and no estate endpoints
+used anywhere. Ctrl-C stops it; `data/` holds state and can be deleted for a
+fresh chain.
 
 CLI (`bin/synaptic`) supports `init`, `start`, `status`, `keys`, `deploy`,
 `call`, `query`, `tx`. Run `./bin/synaptic --help`.
@@ -67,7 +70,8 @@ curl -s -X POST http://127.0.0.1:8545 -H 'content-type: application/json' \
 | Path | Contents |
 |---|---|
 | `bin/` | `synaptic-node` (cortex node) and `synaptic` (CLI), Linux x86_64, release build, Sept 2026 — the same binary family running the production validators. `CHECKSUMS.txt` carries SHA-256. |
-| `scripts/` | `start-local-node.sh` — the 20-line launcher used in the quick start. |
+| `genesis.toml` | The canonical mainnet genesis/tokonomics file the node loads at boot (searches its working directory; refuses devnet fallback by design). |
+| `scripts/` | `start-local-node.sh` — the launcher used in the quick start. |
 | `contracts/` | Three example SynapticLang contracts (`coinflip.syn`, `minimal_token.syn`, `staking.syn`) showing the language: annotated access patterns (`#[reads]/#[writes]`), static scheduling, `require!`, `msg.sender`. This is the DSL taste sample; the production clearinghouse contract stays private. |
 | `config/` | `corridors.example.toml` — the interledger corridor registry format the settlement engine loads (XRPL testnet corridors). |
 | `scores/` | `SCORES.md` — the full verification record: platform test census, the 13 suite scores with live receipts, and honest-boundary language. `scores/receipts/` carries the raw JSON of the most recent cross-rail receipts. |
