@@ -1,0 +1,19 @@
+
+                                 ALL RIGHTS RESERVED
+
+Copyright (c) 2026 Synaptics Lab (SynapticChain). 
+
+This repository is published for EVALUATION ONLY.
+
+ - The node binaries in bin/ may be run and evaluated but not redistributed,
+   sublicensed, or used commercially without written permission.
+ - The example contracts in contracts/ and the configuration sample in
+   config/ are provided as-is, for evaluation, with no warranty of any kind.
+ - The SynapticChain source code (23-crate Rust workspace) is proprietary and
+   is NOT included in this repository. Access is granted on diligence request.
+
+Third-party trademarks referenced anywhere in this repository (including
+"Stripe", "Solana", "XRPL", "FINOS") belong to their owners; descriptive use
+here is not affiliation or endorsement.
+
+Contact: veritasvaultone@gmail.com  ·  https://synapticchain.xyz

@@ -1,0 +1,42 @@
+# SynapticChain interledger corridor registry.
+# Loaded by SettlementEngine via CorridorRegistry::from_file at node startup
+# when [validator.interledger] is enabled. FX rates are sourced from
+# "operator" or "governance" only, never from external oracles.
+
+[global]
+xrpl_network = "wss://s.altnet.rippletest.net:51233"
+xrpl_network_id = "testnet"
+default_validation_quorum = 3
+max_settlement_age_seconds = 300
+
+[[corridor]]
+id = "xrp-to-ctzs"
+name = "XRP to cTZS"
+source_chain = "xrpl"
+source_currency = "XRP"
+dest_currency = "cTZS"
+fx_rate = "6250.00"
+fx_rate_source = "operator"
+fee_bps = 50
+lane_start = 1
+lane_end = 3
+min_amount_drops = "1000"
+max_amount_drops = "100000000000"
+dest_contract = ""
+enabled = true
+
+[[corridor]]
+id = "xrp-to-susd"
+name = "XRP to sUSD"
+source_chain = "xrpl"
+source_currency = "XRP"
+dest_currency = "sUSD"
+fx_rate = "2.50"
+fx_rate_source = "operator"
+fee_bps = 25
+lane_start = 10
+lane_end = 10
+min_amount_drops = "1000"
+max_amount_drops = "500000000000"
+dest_contract = ""
+enabled = true

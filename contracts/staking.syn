@@ -1,0 +1,135 @@
+// Minimal Staking Contract — uses only compiler-supported operations
+// Avoids: .get(), .unwrap(), .unwrap_or(), ? operator, emit, return, helper fns
+
+contract Staking {
+    state staked_balances: Map<Address, u128>;
+    state total_staked: u128;
+    state reward_rate_bps: u128;
+    state paused: bool;
+    state claimed_rewards: Map<Address, u128>;
+    state reward_pool: u128;
+    state stake_times: Map<Address, u64>;
+    state min_stake_period: u64;
+
+    #[writes(total_staked, reward_rate_bps, paused, reward_pool, stake_times, min_stake_period)]
+    pub fn init(initial_reward_rate_bps: u128) {
+        self.total_staked = 0;
+        self.reward_rate_bps = initial_reward_rate_bps;
+        self.paused = false;
+        self.reward_pool = 0;
+        self.min_stake_period = 86400; // 1 day minimum stake period
+    }
+
+    #[reads(paused, staked_balances, stake_times, total_staked)]
+    #[writes(staked_balances, total_staked, stake_times)]
+    pub fn stake() {
+        require!(!self.paused, "PAUSED");
+        let amount: u128 = msg.value as u128;
+        require!(amount > 0, "ZERO_AMOUNT");
+
+        let user_staked = self.staked_balances[msg.sender];
+        self.staked_balances[msg.sender] = user_staked + amount;
+        self.total_staked = self.total_staked + amount;
+
+        // Record stake start time on first stake so rewards accrue from this point.
+        if user_staked == 0 {
+            self.stake_times[msg.sender] = block_height();
+        }
+    }
+
+    #[reads(paused, staked_balances, stake_times, total_staked)]
+    #[writes(staked_balances, total_staked, claimed_rewards, stake_times)]
+    pub fn unstake(amount: u128) {
+        require!(!self.paused, "PAUSED");
+        require!(amount > 0, "ZERO_AMOUNT");
+
+        let user_staked = self.staked_balances[msg.sender];
+        require!(user_staked >= amount, "INSUFFICIENT_STAKE");
+
+        self.staked_balances[msg.sender] = user_staked - amount;
+        self.total_staked = self.total_staked - amount;
+
+        // On a full unstake, reset claimed rewards and stake time so the next
+        // stake starts a fresh accrual period.
+        if self.staked_balances[msg.sender] == 0 {
+            self.claimed_rewards[msg.sender] = 0;
+            self.stake_times[msg.sender] = 0;
+        }
+
+        transfer(msg.sender, amount);
+    }
+
+    #[reads(paused, staked_balances, claimed_rewards, stake_times, min_stake_period, reward_pool, reward_rate_bps)]
+    #[writes(claimed_rewards, reward_pool)]
+    pub fn claim_rewards() -> u128 {
+        require!(!self.paused, "PAUSED");
+
+        let staked = self.staked_balances[msg.sender];
+        require!(staked > 0, "NO_STAKE");
+
+        let stake_time = self.stake_times[msg.sender];
+        require!(stake_time > 0, "NO_STAKE_TIME");
+
+        let elapsed = block_height() - stake_time;
+        require!(elapsed >= self.min_stake_period, "MIN_STAKE_PERIOD_NOT_MET");
+
+        // Accrue rewards by elapsed time.  reward_rate_bps is an annual rate in
+        // basis points; rewards = staked * rate_bps * elapsed / (10000 * seconds_per_year).
+        let seconds_per_year: u128 = 365 * 24 * 60 * 60;
+        let total_rewards = (staked * self.reward_rate_bps * elapsed as u128) / (10000 * seconds_per_year);
+
+        let claimed = self.claimed_rewards[msg.sender];
+        require!(total_rewards > claimed, "NO_REWARDS");
+        let reward = total_rewards - claimed;
+
+        require!(reward > 0, "NO_REWARDS");
+        require!(reward <= self.reward_pool, "INSUFFICIENT_REWARD_POOL");
+
+        self.claimed_rewards[msg.sender] = claimed + reward;
+        self.reward_pool = self.reward_pool - reward;
+
+        transfer(msg.sender, reward);
+
+        reward
+    }
+
+    #[reads(reward_pool)]
+    #[writes(reward_pool)]
+    pub fn deposit_rewards() {
+        let amount: u128 = msg.value as u128;
+        require!(amount > 0, "ZERO_AMOUNT");
+        self.reward_pool = self.reward_pool + amount;
+    }
+
+    #[reads(total_staked)]
+    pub fn get_total_staked() -> u128 {
+        self.total_staked
+    }
+
+    #[reads(staked_balances)]
+    pub fn get_staked_balance(user: Address) -> u128 {
+        self.staked_balances[user]
+    }
+
+    #[reads(staked_balances, stake_times, claimed_rewards, min_stake_period, reward_rate_bps)]
+    pub fn get_pending_rewards(user: Address) -> u128 {
+        let staked = self.staked_balances[user];
+        let stake_time = self.stake_times[user];
+        if staked == 0 || stake_time == 0 {
+            return 0;
+        }
+        let elapsed = block_height() - stake_time;
+        let seconds_per_year: u128 = 365 * 24 * 60 * 60;
+        let total_rewards = (staked * self.reward_rate_bps * elapsed as u128) / (10000 * seconds_per_year);
+        let claimed = self.claimed_rewards[user];
+        if total_rewards > claimed {
+            return total_rewards - claimed;
+        }
+        return 0;
+    }
+
+    #[reads(reward_rate_bps)]
+    pub fn get_current_apr() -> u128 {
+        self.reward_rate_bps
+    }
+}

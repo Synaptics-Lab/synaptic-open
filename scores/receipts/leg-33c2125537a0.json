@@ -1,0 +1,460 @@
+{
+ "id": "leg-33c2125537a0",
+ "kind": "leg",
+ "n": 91807286109004,
+ "status": "pass",
+ "started_at": "2026-10-12T12:14:46.109Z",
+ "finished_at": "2026-10-12T12:21:08.626Z",
+ "stages": [
+  {
+   "n": 0,
+   "name": "PRE-FLIGHT",
+   "status": "pass",
+   "detail": "corridor 16 (xrp-to-susd) fx 2.50 operator · relayer float 3498.1344 wei-syn ≥ floor",
+   "ms": null,
+   "verbatim": {
+    "relayer_balance_wei": "3498134442079506059016",
+    "corridor": {
+     "dest_contract": "syn15nrqa02sjjx36yz90e7a64qh70adejnfak7zfp",
+     "dest_currency": "sUSD",
+     "enabled": true,
+     "fee_bps": 25,
+     "fx_rate": "2.50",
+     "fx_rate_source": "operator",
+     "id": "xrp-to-susd",
+     "lane_end": 10,
+     "lane_start": 10,
+     "max_amount_drops": "500000000000",
+     "min_amount_drops": "1000",
+     "name": "XRP → sUSD (SynapticChain USD)",
+     "source_chain": "xrpl",
+     "source_currency": "XRP"
+    }
+   },
+   "badges": []
+  },
+  {
+   "n": 1,
+   "name": "SESSION REGISTER",
+   "status": "pass",
+   "detail": "session=b90b33fe7b9912… agent=syn1h4k3gvgg7qkzsg95… (26 ms)",
+   "ms": null,
+   "verbatim": {
+    "session_id": "b90b33fe7b99124b6933b53e2a709052857dfb74a1eea639",
+    "agent": "syn1h4k3gvgg7qkzsg95edhvs73s7ueecw5cq5am06",
+    "pubkey_hex": "1b04c117059618f1477a90fd5eae04ae0bb86aa91e2a01fdfbaaf420a34b62db",
+    "license_token_id": null,
+    "created_at": "2026-10-12T12:14:46.293Z"
+   },
+   "badges": []
+  },
+  {
+   "n": 2,
+   "name": "2204 RAISE INTENT",
+   "status": "pass",
+   "detail": "accepted http=200 httpMs=331045 (the ingest runs minutes — this stage is the machine settling)",
+   "ms": 331045,
+   "verbatim": {
+    "accepted": true,
+    "status": "settled",
+    "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+    "corridor": "16",
+    "debtor": "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+    "creditor": "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+    "amount_base_units": "10000000000000",
+    "clearinghouse_session": 102,
+    "final_status": 3,
+    "audit_root": "c81a68c79ef1324cbeebbfe1ed5494b5263d0e5240285aa243ed42125512863e",
+    "memos": [
+     "X402W:102:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+     "X402M:16:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+     "X402N:102:10000000000000"
+    ],
+    "settled_at": "2026-10-12T12:20:17.322Z",
+    "cycle_receipts": {
+     "at": 1791807616155,
+     "steps": [
+      {
+       "step": "prereq",
+       "code_len": 88838,
+       "participants": [
+        "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+        "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez"
+       ]
+      },
+      {
+       "step": "margin_topup",
+       "syn": "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+       "topped": true,
+       "deposit": "10005000000000",
+       "balance": "10005000000000",
+       "watermark": "240170050000000"
+      },
+      {
+       "step": "open_session",
+       "session": 102,
+       "status": 1,
+       "corridor": 16
+      },
+      {
+       "step": "submit_obligations",
+       "count": 1,
+       "uetr1": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b"
+      },
+      {
+       "step": "seal_session",
+       "root": "c81a68c79ef1324cbeebbfe1ed5494b5263d0e5240285aa243ed42125512863e",
+       "status": 2
+      },
+      {
+       "step": "net_reads",
+       "debtSum": "10000000000000",
+       "creditSum": "10000000000000"
+      }
+     ],
+     "trigger": "fdc3-startpayment",
+     "obligations": [
+      {
+       "debtor": "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+       "creditor": "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+       "amount": "10000000000000",
+       "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b"
+      }
+     ],
+     "session_id": 102,
+     "audit_root": "c81a68c79ef1324cbeebbfe1ed5494b5263d0e5240285aa243ed42125512863e",
+     "nets": {
+      "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux": {
+       "net": "10000000000000",
+       "isDebtor": true
+      },
+      "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez": {
+       "net": "10000000000000",
+       "isDebtor": false
+      }
+     },
+     "evidence_debtor": [
+      {
+       "participant": "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+       "owner": "rBwaVg5sse6VMzuH2xwDGyn5d7dAahGJAN",
+       "sequence": 20857237,
+       "hash": "661EFD8511AB9A03B8D3CA5E72F2DD05F774C12E98D7C8C01F75A3C7A51DF547",
+       "drops": 3000,
+       "memos": [
+        "X402W:102:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+        "X402M:16:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+        "X402N:102:10000000000000"
+       ]
+      }
+     ],
+     "settle_debtor": [
+      {
+       "participant": "syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+       "margin_before": "10005000000000",
+       "margin_after": "0",
+       "fee": "5000000000"
+      }
+     ],
+     "evidence_creditor": [
+      {
+       "participant": "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+       "owner": "rG27qRKKdknjT7kEehyW3o8X6gA2i3Hp3r",
+       "sequence": 20857296,
+       "hash": "631C1B4EC718B48C6DC19A217A855FC78EE296BA0D66FE9551130B6FADD9509D",
+       "drops": 3000,
+       "memos": [
+        "X402W:102:syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+        "X402M:16:syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+        "X402N:102:10000000000000"
+       ]
+      }
+     ],
+     "settle_creditor": [
+      {
+       "participant": "syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+       "margin_before": "152700000000000",
+       "margin_after": "162700000000000"
+      }
+     ],
+     "final_status": 3,
+     "ms": 329609
+    }
+   },
+   "badges": [
+    "PR #2204"
+   ]
+  },
+  {
+   "n": 3,
+   "name": "CLEARINGHOUSE RECEIPT",
+   "status": "pass",
+   "detail": "session=102 final_status=3 root=c81a68c79ef1324c… corridor=16 amount_base=10000000000000",
+   "ms": null,
+   "verbatim": {
+    "memos": [
+     "X402W:102:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+     "X402M:16:syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux",
+     "X402N:102:10000000000000"
+    ],
+    "settled_at": "2026-10-12T12:20:17.322Z"
+   },
+   "badges": []
+  },
+  {
+   "n": 4,
+   "name": "IDEMPOTENCY REPLAY",
+   "status": "pass",
+   "detail": "no second obligation — the first receipt is returned",
+   "ms": null,
+   "verbatim": {
+    "first_receipt_status": "replay"
+   },
+   "badges": []
+  },
+  {
+   "n": 5,
+   "name": "XRPL CORRIDOR LEG",
+   "status": "pass",
+   "detail": "payer=rDx9xNAdksYyPcGMunxrt1MSC9BUEL31F2 tx=7A66917E258DEE319211095F14C69C6858E487D52D4394749CC73720F1A12A78 drops=60000 memo=X402:xrp-to-susd:<uetr>",
+   "ms": null,
+   "verbatim": {
+    "payer": "rDx9xNAdksYyPcGMunxrt1MSC9BUEL31F2",
+    "tx": "7A66917E258DEE319211095F14C69C6858E487D52D4394749CC73720F1A12A78",
+    "drops": 60000
+   },
+   "badges": []
+  },
+  {
+   "n": 6,
+   "name": "SETTLEMENT RECORD",
+   "status": "pass",
+   "detail": "status=recorded corridor_id=xrp-to-susd lane=10 checkpoint=223042 fx=2.43 (market: syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez)",
+   "ms": null,
+   "verbatim": {
+    "checkpoint_height": 223042,
+    "conversion": {
+     "dest_currency": "sUSD",
+     "fee_amount_sunits": 364,
+     "fee_bps": 25,
+     "fx_rate_source": "market: syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+     "fx_rate_str": "2.43",
+     "gross_destination_sunits": 145800,
+     "net_destination_sunits": 145436,
+     "source_drops": 60000
+    },
+    "corridor_id": "xrp-to-susd",
+    "lane": 10,
+    "payment_context": {
+     "amount": {
+      "amount": "0.145436",
+      "currency": "USD",
+      "feeBps": 25,
+      "fxRate": "2.43",
+      "fxRateSource": "market: syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+      "settlementToken": "sUSD",
+      "sourceAmount": "0.06",
+      "sourceCurrency": "XRP",
+      "type": "synapticchain.amount"
+     },
+     "checkpoint": 223042,
+     "creditor": {
+      "id": {
+       "SYNAPTICCHAIN": "syn15zsxe8gp3k320xwrxknw5lqk6cj5r0srxnj74p"
+      },
+      "name": "Corridor Creditor",
+      "type": "synapticchain.party"
+     },
+     "debtor": {
+      "id": {
+       "XRPL": "rDx9xNAdksYyPcGMunxrt1MSC9BUEL31F2"
+      },
+      "name": "XRPL Debtor",
+      "type": "synapticchain.party"
+     },
+     "id": {
+      "PACS008_MESSAGE_ID": "XRPL-21479018-7a66917e258dee31",
+      "SYNAPTICCHAIN_TX": "b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+      "UETR": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+      "XRPL_LEDGER_TX": "7a66917e258dee319211095f14c69c6858e487d52d4394749cc73720f1a12a78"
+     },
+     "name": "SynapticChain cross-chain payment",
+     "timestamp": "2026-10-12T12:21:06Z",
+     "type": "synapticchain.payment"
+    },
+    "receipt_msg_id": "RECEIPT-7a66917e258dee31-223042",
+    "settled_at": 1791807666,
+    "status": "recorded",
+    "syn_tx_hash": "b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+    "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+    "xrpl_tx_hash": "7a66917e258dee319211095f14c69c6858e487d52d4394749cc73720f1a12a78"
+   },
+   "badges": []
+  },
+  {
+   "n": 7,
+   "name": "PACS.002 ACSC",
+   "status": "pass",
+   "detail": "kind=settlement_completed Acsc · e2e_id=SAME UETR · msg_id=RECEIPT-7a66917e258dee31-223042",
+   "ms": null,
+   "verbatim": {
+    "checkpoint_height": 223042,
+    "conversion": {
+     "dest_currency": "sUSD",
+     "fee_amount_sunits": 364,
+     "fee_bps": 25,
+     "fx_rate_source": "market: syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+     "fx_rate_str": "2.43",
+     "gross_destination_sunits": 145800,
+     "net_destination_sunits": 145436,
+     "source_drops": 60000
+    },
+    "corridor_id": "xrp-to-susd",
+    "kind": "settlement_completed",
+    "lane": 10,
+    "pacs002": {
+     "group_header": {
+      "control_sum": null,
+      "creation_datetime": "2026-10-12T12:21:06Z",
+      "initiating_party": "SynapticChain Interledger Bridge",
+      "message_id": "RECEIPT-7a66917e258dee31-223042",
+      "number_of_transactions": 1
+     },
+     "original_group_information_and_status": {
+      "group_status": "Acsc",
+      "original_message_id": "XRPL-21479018-7a66917e258dee31",
+      "original_message_name_identification": "pacs.008.001.08",
+      "status_reason_information": []
+     },
+     "transaction_information_and_status": [
+      {
+       "clearing_system_reference": "checkpoint:223042:tx:b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+       "original_end_to_end_id": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+       "original_instruction_id": "7a66917e258dee319211095f14c69c6858e487d52d4394749cc73720f1a12a78",
+       "original_transaction_id": "b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+       "settlement_timestamp": 1791807666,
+       "status_id": "XRPL-7a66917e258dee31",
+       "transaction_status": "Acsc"
+      }
+     ]
+    },
+    "payment_context": {
+     "amount": {
+      "amount": "0.145436",
+      "currency": "USD",
+      "feeBps": 25,
+      "fxRate": "2.43",
+      "fxRateSource": "market: syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez",
+      "settlementToken": "sUSD",
+      "sourceAmount": "0.06",
+      "sourceCurrency": "XRP",
+      "type": "synapticchain.amount"
+     },
+     "checkpoint": 223042,
+     "creditor": {
+      "id": {
+       "SYNAPTICCHAIN": "syn15zsxe8gp3k320xwrxknw5lqk6cj5r0srxnj74p"
+      },
+      "name": "Corridor Creditor",
+      "type": "synapticchain.party"
+     },
+     "debtor": {
+      "id": {
+       "XRPL": "rDx9xNAdksYyPcGMunxrt1MSC9BUEL31F2"
+      },
+      "name": "XRPL Debtor",
+      "type": "synapticchain.party"
+     },
+     "id": {
+      "PACS008_MESSAGE_ID": "XRPL-21479018-7a66917e258dee31",
+      "SYNAPTICCHAIN_TX": "b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+      "UETR": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+      "XRPL_LEDGER_TX": "7a66917e258dee319211095f14c69c6858e487d52d4394749cc73720f1a12a78"
+     },
+     "name": "SynapticChain cross-chain payment",
+     "timestamp": "2026-10-12T12:21:06Z",
+     "type": "synapticchain.payment"
+    },
+    "receipt_msg_id": "RECEIPT-7a66917e258dee31-223042",
+    "settled_at": 1791807666,
+    "settlement_address": "syn15zsxe8gp3k320xwrxknw5lqk6cj5r0srxnj74p",
+    "syn_tx_hash": "b6475478eb8b59af7b3bb30e1705962b1feb449c67347a0a6c5bc3e9c0a63094",
+    "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+    "xrpl_ledger_index": 21479018,
+    "xrpl_sender": "rDx9xNAdksYyPcGMunxrt1MSC9BUEL31F2",
+    "xrpl_tx_hash": "7a66917e258dee319211095f14c69c6858e487d52d4394749cc73720f1a12a78"
+   },
+   "badges": []
+  },
+  {
+   "n": 8,
+   "name": "PTB COMPOSE",
+   "status": "pass",
+   "detail": "rail=\"Solana DEVNET\" · 3-stage plan · memo SSOT-equal (X402:xrp-to-susd:74007e92-ed63-4b9…) · unsigned_tx 324 B",
+   "ms": null,
+   "verbatim": {
+    "rail": "Solana DEVNET",
+    "plan": [
+     "sysvar_clock",
+     "memo",
+     "payment"
+    ],
+    "unsigned_tx_len": 324
+   },
+   "badges": []
+  },
+  {
+   "n": 9,
+   "name": "ADAPTER REGISTRY",
+   "status": "pass",
+   "detail": "record Acsc · tradeId null · null",
+   "ms": null,
+   "verbatim": {
+    "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+    "status": "Acsc",
+    "tradeId": null,
+    "txSignature": null,
+    "security": null,
+    "quantity": null,
+    "side": null,
+    "fingerprint": "4413c1d1604685056cdb8d6184bf826c657c5eee29503369dbcbf88262ea5cf8",
+    "created": null,
+    "updated": "2026-10-12T12:21:08.524Z"
+   },
+   "badges": []
+  },
+  {
+   "n": 10,
+   "name": "OUTBOUND WIRE DOC",
+   "status": "pass",
+   "detail": "pacs.008.001.08 rendered from the SAME UETR · msg_id=SYN-FINOS-20261012-6C01 · instg SYNAPZKAXXX · 2470 B — outbound document a SWIFT-lane counterparty ingests (pure compute: no second settlement)",
+   "ms": null,
+   "verbatim": {
+    "msgId": "SYN-FINOS-20261012-6C01",
+    "uetr": "74007e92-ed63-4b9b-9a0b-9ff2f6711f3b",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08\"\n          xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n          xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08 pacs.008.001.08.xsd\">\n  <FIToFICstmrCdtTrf>\n    <GrpHdr>\n      <MsgId>SYN-FINOS-20261012-6C01</MsgId>\n      <CreDtTm>2026-10-12T12:21:08.570+00:00</CreDtTm>\n      <NbOfTxs>1</NbOfTxs>\n      <CtrlSum>100000.00</CtrlSum>\n      <IntrBkSttlmDt>2026-10-12</IntrBkSttlmDt>\n      <SttlmInf>\n        <SttlmMtd>CLRG</SttlmMtd>\n        <ClrSys>\n          <Prtry>SCBFT-L1</Prtry>\n        </ClrSys>\n      </SttlmInf>\n      <InstgAgt>\n        <FinInstnId>\n          <BICFI>SYNAPZKAXXX</BICFI>\n          <Nm>SynapticChain Interledger Gateway</Nm>\n          <PstlAdr><Ctry>ZM</Ctry></PstlAdr>\n        </FinInstnId>\n      </InstgAgt>\n    </GrpHdr>\n    <CdtTrfTxInf>\n      <PmtId>\n        <InstrId>SYN-FINOS-20261012-6C01-001</InstrId>\n        <EndToEndId>SYN-FINOS-20261012-6C01-E2E</EndToEndId>\n        <UETR>74007e92-ed63-4b9b-9a0b-9ff2f6711f3b</UETR>\n      </PmtId>\n      <PmtTpInf>\n        <SvcLvl><Cd>SEPA</Cd></SvcLvl>\n        <LclInstrm><Prtry>FDC3-StartPayment</Prtry></LclInstrm>\n      </PmtTpInf>\n      <IntrBkSttlmAmt Ccy=\"USD\">100000.00</IntrBkSttlmAmt>\n      <IntrBkSttlmDt>2026-10-12</IntrBkSttlmDt>\n      <ChrgBr>SHAR</ChrgBr>\n      <InstgAgt>\n        <FinInstnId><BICFI>SYNAPZKAXXX</BICFI></FinInstnId>\n      </InstgAgt>\n      <Dbtr>\n        <Nm>FDC3 StartPayment Originator</Nm>\n        <PstlAdr><Ctry>ZM</Ctry></PstlAdr>\n      </Dbtr>\n      <DbtrAcct>\n        <Id><Othr><Id>syn1d978q62e0u8whpmqh7jxwl375km46yketce7ux</Id></Othr></Id>\n        <Ccy>USD</Ccy>\n      </DbtrAcct>\n      <DbtrAgt>\n        <FinInstnId><BICFI>SYNAPZKAXXX</BICFI></FinInstnId>\n      </DbtrAgt>\n      <Cdtr>\n        <Nm>FDC3 StartPayment Beneficiary</Nm>\n        <PstlAdr><Ctry>ZM</Ctry></PstlAdr>\n      </Cdtr>\n      <CdtrAcct>\n        <Id>\n          <Othr><Id>syn1ulmexg047p0px95c9gqv5pqpsvezjuwthwsnez</Id></Othr>\n        </Id>\n        <Ccy>USD</Ccy>\n      </CdtrAcct>\n      <CdtrAgt>\n        <FinInstnId><BICFI>SYNAPZKAXXX</BICFI></FinInstnId>\n      </CdtrAgt>\n      <InstrForNxtAgt>\n        <InstrInf>NET_AMT_USD=100000.00</InstrInf>\n      </InstrForNxtAgt>\n      <RmtInf>\n        <Ustrd>FDC3 StartPayment via SynapticChain — UETR:74007e92-ed63-4b9b-9a0b-9ff2f6711f3b</Ustrd>\n      </RmtInf>\n    </CdtTrfTxInf>\n  </FIToFICstmrCdtTrf>\n</Document>"
+   },
+   "badges": []
+  }
+ ],
+ "error": null,
+ "live": {
+  "corridor": {
+   "dest_contract": "syn15nrqa02sjjx36yz90e7a64qh70adejnfak7zfp",
+   "dest_currency": "sUSD",
+   "enabled": true,
+   "fee_bps": 25,
+   "fx_rate": "2.50",
+   "fx_rate_source": "operator",
+   "id": "xrp-to-susd",
+   "lane_end": 10,
+   "lane_start": 10,
+   "max_amount_drops": "500000000000",
+   "min_amount_drops": "1000",
+   "name": "XRP → sUSD (SynapticChain USD)",
+   "source_chain": "xrpl",
+   "source_currency": "XRP"
+  },
+  "corridor_id": 16
+ },
+ "summary": "9/9 legs PASS · wire doc=rendered · uetr=74007e92-ed63-4b9b-9a0b-9ff2f6711f3b · corridor xrp-to-susd"
+}

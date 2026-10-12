@@ -1,0 +1,90 @@
+// Minimal SRC20 Token - uses only compiler-supported operations
+// Avoids: .get(), .unwrap(), .unwrap_or(), .contains_key(), .get_or_default(),
+//         Map::new(), ? operator, emit (broken in scheduler)
+
+contract MinimalToken {
+    state name: String;
+    state symbol: String;
+    state decimals: u8;
+    state total_supply: u128;
+    state balances: Map<Address, u128>;
+    state allowances: Map<Address, Map<Address, u128>>;
+
+    pub fn init(
+        token_name: String,
+        token_symbol: String,
+        token_decimals: u8,
+        initial_supply: u128
+    ) {
+        self.name = token_name;
+        self.symbol = token_symbol;
+        self.decimals = token_decimals;
+        self.total_supply = initial_supply;
+        self.balances[msg.sender] = initial_supply;
+    }
+
+    pub fn get_name() -> String {
+        self.name
+    }
+
+    pub fn get_symbol() -> String {
+        self.symbol
+    }
+
+    pub fn get_decimals() -> u8 {
+        self.decimals
+    }
+
+    pub fn get_total_supply() -> u128 {
+        self.total_supply
+    }
+
+    pub fn balance_of(account: Address) -> u128 {
+        self.balances[account]
+    }
+
+    pub fn allowance(owner: Address, spender: Address) -> u128 {
+        self.allowances[owner][spender]
+    }
+
+    @gas_limit(30000)
+    pub fn transfer(to: Address, amount: u128) -> bool {
+        require!(amount > 0, "Amount must be positive");
+        require!(to != Address::zero(), "Invalid recipient");
+
+        let sender = msg.sender;
+        let sender_balance = self.balances[sender];
+        require!(sender_balance >= amount, "Insufficient balance");
+
+        self.balances[sender] = sender_balance - amount;
+        self.balances[to] = self.balances[to] + amount;
+
+        true
+    }
+
+    @gas_limit(50000)
+    pub fn transfer_from(from: Address, to: Address, amount: u128) -> bool {
+        require!(amount > 0, "Amount must be positive");
+        require!(to != Address::zero(), "Invalid recipient");
+
+        let spender = msg.sender;
+        let current_allowance = self.allowances[from][spender];
+        require!(current_allowance >= amount, "Insufficient allowance");
+
+        let from_balance = self.balances[from];
+        require!(from_balance >= amount, "Insufficient balance");
+
+        self.allowances[from][spender] = current_allowance - amount;
+        self.balances[from] = from_balance - amount;
+        self.balances[to] = self.balances[to] + amount;
+
+        true
+    }
+
+    @gas_limit(20000)
+    pub fn approve(spender: Address, amount: u128) -> bool {
+        require!(spender != Address::zero(), "Invalid spender");
+        self.allowances[msg.sender][spender] = amount;
+        true
+    }
+}

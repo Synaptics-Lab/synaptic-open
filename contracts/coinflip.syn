@@ -1,0 +1,64 @@
+// Coinflip Game Contract — handles payments, 2x payout on win
+// Randomness: on-chain VRF via get_random() (CRIT-04 fix)
+
+contract Coinflip {
+    state house_balance: u128;
+    state total_games: u64;
+    state total_wagered: u128;
+
+    #[writes(house_balance, total_games, total_wagered)]
+    pub fn initialize(initial_balance: u128) {
+        self.house_balance = initial_balance;
+        self.total_games = 0;
+        self.total_wagered = 0;
+    }
+
+    // choice: 0 = heads, 1 = tails
+    // CRIT-04 fix: randomness is generated on-chain via get_random(),
+    // NOT supplied by caller. This prevents players from choosing the
+    // winning result and always profiting.
+    #[writes(house_balance, total_games, total_wagered)]
+    pub fn play(choice: u64) -> bool {
+        require!(choice <= 1, "Choice must be 0 or 1");
+        require!(msg.value > 0, "Bet must be positive");
+        require!(self.house_balance >= msg.value, "Insufficient house balance");
+
+        let bet: u128 = msg.value;
+        let random_value = get_random();
+        let vrf_result = random_value % 2;
+        let won: bool = vrf_result == choice;
+
+        if won {
+            self.house_balance = self.house_balance - bet;
+            transfer(msg.sender, bet + bet);
+        } else {
+            self.house_balance = self.house_balance + bet;
+        }
+
+        self.total_games = self.total_games + 1;
+        self.total_wagered = self.total_wagered + bet;
+
+        return won;
+    }
+
+    #[writes(house_balance)]
+    pub fn fund_house() {
+        require!(msg.value > 0);
+        self.house_balance = self.house_balance + msg.value;
+    }
+
+    #[reads(house_balance)]
+    pub fn get_house_balance() -> u128 {
+        return self.house_balance;
+    }
+
+    #[reads(total_games)]
+    pub fn get_total_games() -> u64 {
+        return self.total_games;
+    }
+
+    #[reads(total_wagered)]
+    pub fn get_total_wagered() -> u128 {
+        return self.total_wagered;
+    }
+}
